@@ -28,8 +28,8 @@ class ProfilesController extends Controller
     {
         Gate::authorize('update-profile', $user->profile);
         $data = request()->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'title' => ['required', 'max:50'],
+            'description' => ['required', 'max:255'],
             'image' => '',
         ]);
 
@@ -38,7 +38,6 @@ class ProfilesController extends Controller
             $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000, 1000);
             $image->save();
             $imageArray = ['image' => $imagePath];
-            dd($imageArray);
         }
 
         auth()->user()->profile->update(array_merge($data, $imageArray ?? []));
