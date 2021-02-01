@@ -5,7 +5,7 @@ use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\TweetsController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\RetweetsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +43,10 @@ Route::delete('/t/{tweet}/{comment}', [CommentsController::class, 'destroy'])->n
 
 // Follower routes
 Route::post('/follow/{user}', [FollowsController::class, 'store'])->name('follow.store');
+
+// Retweet routes
+Route::post('/t/{tweet}/retweet', [RetweetsController::class, 'store'])->name('retweet.store');
+Route::delete('/retweet/{retweet}', [RetweetsController::class, 'destroy'])->name('retweet.destroy');
 
 // Profile Routes
 Route::get('/profile/{user}', [ProfilesController::class, 'index'])->name('profile.show');

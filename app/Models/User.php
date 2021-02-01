@@ -66,6 +66,9 @@ class User extends Authenticatable
     public function profile() {
         return $this->hasOne(Profile::class);
     }
+    public function retweets() {
+        return $this->hasMany(Retweet::class)->orderBy('created_at', 'DESC');
+    }
     public function tweets() {
         return $this->hasMany(Tweet::class)->orderBy('created_at', 'DESC');
     }

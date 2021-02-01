@@ -10,17 +10,13 @@ class ProfilesController extends Controller
 {
     public function index(User $user)
     {
-
-        // dd($user);
         return view('profiles.index', compact('user'));
     }
     //
     public function edit(User $user)
     {
         Gate::authorize('update-profile', $user->profile);
-        // if (!Gate::allows('update-profile', $user->profile)) {
-        //     abort(403);
-        // }
+
         return view('profiles.edit', compact('user'));
     }
 

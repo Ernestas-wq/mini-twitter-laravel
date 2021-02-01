@@ -18,8 +18,9 @@
                 @endcan
             </div>
 
+
             <div class="col-12 mt-1" style="padding-left: 0">
-                 <form method="POST" action={{route('follow.store', $user->id)}}>
+                <form method="POST" action={{route('follow.store', $user->id)}}>
                     @csrf
                     <button class="btn btn-info" type="submit">
                         {{ Auth::user()->isFollowing(Auth::user(), $user) ? 'Unfollow' : 'Follow'}}
@@ -43,6 +44,10 @@
 
 
     {{-- Single Tweet --}}
+    <div class="row col-8 offset-2 mt-3">
+       <h2 class="display-4">Tweets</h2>
+    </div>
+
     @foreach($user->tweets as $tweet)
     <div class="row col-8 offset-2 mt-3" style="flex-direction: column">
         <h4 class="d-flex align-items-center">{{$tweet->title}}
@@ -71,6 +76,39 @@
     </div>
 
     @endforeach
+     <div class="row col-8 offset-2 mt-3">
+       <h2 class="display-4">Retweets</h2>
+           </div>
+
+        @foreach($user->retweets as $retweet)
+         <div class="row col-8 offset-2 mt-3" style="flex-direction: column">
+        <h4 class="d-flex align-items-center">{{$retweet->title}}
+            @can('update-tweet', $tweet)
+                <form class="ml-4" style="display: inline-block"
+                 action="{{route('retweet.destroy', $retweet->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" style="padding: 0"> Delete</button>
+                </form>
+                </span>
+
+            @endcan
+                    <span style="font-size: 16px" class="pl-5 text-primary">
+                        {{$retweet->created_at}}
+                    </span>
+
+        </h4>
+        <p class="mt-3">{{$retweet->description}}</p>
+        <a href={{route('tweet.show', $retweet->tweet->id)}}>View Original</a>
+        <p style="position: absolute; bottom: 0; right: 30%;">by
+            <span class="font-weight-bold font-italic">{{$retweet->author}}</span>
+        </p>
+    </div>
+
+        @endforeach
+
+
+
 
 
 </div>

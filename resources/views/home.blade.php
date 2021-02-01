@@ -23,6 +23,7 @@
                     </p>
                     <p style="position: absolute; bottom: 0; right: 5px; font-size: 14px">
                     {{$tweet->created_at}}</p>
+                    <a href={{route('tweet.show', $tweet->id)}} style="position: absolute; bottom: 0; left: 15px">View Tweet</a>
                 </div>
         </div>
         @endforeach

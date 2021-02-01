@@ -5,12 +5,19 @@
     <div class="row">
         <div class="col-8 offset-2">
             <h4>{{$tweet->title}} <span style="font-size: 75%" class="ml-4 text-info font-italic">by
-                    {{$tweet->user->username}}</span></h4>
+                    <a class="text-info font-italic" href={{route('profile.show', $tweet->user->id)}}>
+                        {{$tweet->user->username}}</a>
+                </span></h4>
+                <p><span class="font-weight-bold">{{$tweet->retweets->count()}}</span> Retweets</p>
             <p class="mt-4">
                 {{$tweet->description}}
             </p>
             <a href="" data-toggle="modal" data-target="#exampleModal">Comment</a>
+            <form class="mt-2" method="POST" action={{route('retweet.store', $tweet->id)}}>
+            @csrf
+                <button type="submit" class="btn btn-info" style="padding: 0">Retweet</button>
 
+            </form>
         </div>
     </div>
     {{-- Comment Modal --}}

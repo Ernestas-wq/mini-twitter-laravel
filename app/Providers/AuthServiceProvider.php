@@ -38,6 +38,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('access-comment', function(User $user, Comment $comment) {
             return $user->id === intval($comment->user_id);
         });
+        Gate::define('can-retweet', function(User $user, Tweet $tweet) {
+            return $user->id !== $tweet->user->id;
+        });
 
         //
     }
