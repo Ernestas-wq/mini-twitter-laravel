@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\TweetsController;
+use App\Http\Controllers\FollowsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,10 @@ Route::delete('/t/{tweet}',[TweetsController::class, 'destroy'])->name('tweet.de
 Route::post('/t/{tweet}/comment',[CommentsController::class, 'store'])->name('comment.store');
 Route::get('/t/{tweet}/{comment}/edit', [CommentsController::class, 'edit'])->name('comment.edit');
 Route::patch('/t/{tweet}/{comment}', [CommentsController::class, 'update'])->name('comment.update');
+Route::delete('/t/{tweet}/{comment}', [CommentsController::class, 'destroy'])->name('comment.destroy');
 
+// Follower routes
+Route::post('/follow/{user}', [FollowsController::class, 'store'])->name('follow.store');
 
 // Profile Routes
 Route::get('/profile/{user}', [ProfilesController::class, 'index'])->name('profile.show');

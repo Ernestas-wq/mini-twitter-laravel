@@ -59,6 +59,13 @@
             <p>{{$comment->text}} <span style="position:absolute; bottom:0; right:30px">
              @can('access-comment', $comment)
             <a href="{{route('comment.edit', [$comment->tweet_id, $comment->id ])}}">Edit</a></span></p>
+            <form style="position: absolute; bottom:-15px; left:13px;"
+            action="{{route('comment.destroy',[$tweet->id, $comment->id])}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" style="padding: 0"> Delete</button>
+                </form>
+
             @endcan
         </div>
 

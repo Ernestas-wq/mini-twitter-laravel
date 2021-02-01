@@ -42,11 +42,17 @@ class CommentsController extends Controller
             'text' => ['required', 'max:150'],
         ]);
         $comment->update($data);
-        $message = 'Update successful';
+        $message = 'Updated successfuly';
         return view('tweets.show', compact('tweet','message'));
 
     }
+    public function destroy(Tweet $tweet, Comment $comment) {
+        Gate::authorize('access-comment', $comment);
+        $comment->delete();
+        $message = 'Deleted successfuly';
+        return view('tweets.show', compact('tweet', 'message'));
 
+    }
 
 
     //

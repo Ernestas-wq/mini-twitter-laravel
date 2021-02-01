@@ -17,10 +17,20 @@
                 <a href="{{route('tweet.create')}}">New Tweet</a>
                 @endcan
             </div>
+
+            <div class="col-12 mt-1" style="padding-left: 0">
+                 <form method="POST" action={{route('follow.store', $user->id)}}>
+                    @csrf
+                    <button class="btn btn-info" type="submit">
+                        {{ Auth::user()->isFollowing(Auth::user(), $user) ? 'Unfollow' : 'Follow'}}
+                    </button>
+                </form>
+            </div>
+
             <div class="d-flex mt-3">
                 <div class="pr-5"><strong>{{$user->tweets->count()}}</strong> Tweets</div>
-                <div class="pr-5"><strong>1000</strong> Followers</div>
-                <div class="pr-5"><strong>10</strong> Following</div>
+                <div class="pr-5"><strong>{{$user->profile->followers->count()}}</strong> Followers</div>
+                <div class="pr-5"><strong>{{$user->following->count()}}</strong> Following</div>
             </div>
             <div class="pt-4 font-weight-bold">{{$user->profile->title ?? ''}}</div>
             <div class="">{{$user->profile->description ?? ''}}</div>
@@ -32,7 +42,7 @@
 
 
 
-    {{-- Single Post --}}
+    {{-- Single Tweet --}}
     @foreach($user->tweets as $tweet)
     <div class="row col-8 offset-2 mt-3" style="flex-direction: column">
         <h4 class="d-flex align-items-center">{{$tweet->title}}
@@ -50,10 +60,13 @@
                 </span>
 
             @endcan
+                    <span style="font-size: 16px" class="pl-5 text-primary">
+                        {{$tweet->updated_at}}
+                    </span>
+
         </h4>
         <p class="mt-3">{{$tweet->description}}</p>
         <a href={{route('tweet.show', $tweet->id)}}>View Tweet</a>
-
 
     </div>
 
