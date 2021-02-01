@@ -4,6 +4,8 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\TweetsController;
 use App\Http\Controllers\FollowsController;
+use App\Http\Controllers\HomeController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
-Route::view('home', 'home')->middleware('auth');
+Route::get('/home',[HomeController::class, 'index'])->name('home.index');
 
 // Tweet routes
 
