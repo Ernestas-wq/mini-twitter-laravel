@@ -50,6 +50,7 @@ class User extends Authenticatable
                 'title' => $user->username
             ]);
         });
+
     }
 
     public function isFollowing(User $auth_user, User $user) {

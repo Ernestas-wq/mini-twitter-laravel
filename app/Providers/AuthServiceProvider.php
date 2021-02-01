@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Retweet;
 use App\Models\Tweet;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -41,7 +42,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('can-retweet', function(User $user, Tweet $tweet) {
             return $user->id !== $tweet->user->id;
         });
-
+        Gate::define('delete-retweet', function(User $user, Retweet $retweet) {
+            return $user->id === intval($retweet->user_id);
+        });
         //
     }
 }

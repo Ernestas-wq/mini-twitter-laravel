@@ -45,9 +45,8 @@
 
     {{-- Single Tweet --}}
     <div class="row col-8 offset-2 mt-3">
-       <h2 class="display-4">Tweets</h2>
+       <h2 class="display-5">Tweets</h2>
     </div>
-
     @foreach($user->tweets as $tweet)
     <div class="row col-8 offset-2 mt-3" style="flex-direction: column">
         <h4 class="d-flex align-items-center">{{$tweet->title}}
@@ -74,16 +73,16 @@
         <a href={{route('tweet.show', $tweet->id)}}>View Tweet</a>
 
     </div>
+     @endforeach
 
-    @endforeach
      <div class="row col-8 offset-2 mt-3">
-       <h2 class="display-4">Retweets</h2>
+       <h2 class="display-5">Retweets</h2>
            </div>
 
         @foreach($user->retweets as $retweet)
          <div class="row col-8 offset-2 mt-3" style="flex-direction: column">
         <h4 class="d-flex align-items-center">{{$retweet->title}}
-            @can('update-tweet', $tweet)
+            @can('delete-retweet', $retweet)
                 <form class="ml-4" style="display: inline-block"
                  action="{{route('retweet.destroy', $retweet->id)}}" method="POST">
                     @csrf

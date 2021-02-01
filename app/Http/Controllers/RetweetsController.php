@@ -27,9 +27,8 @@ class RetweetsController extends Controller
     }
 
     public function destroy(Retweet $retweet) {
-
+        Gate::authorize('delete-retweet', $retweet);
         $retweet->delete();
-
         return redirect('/profile/'.auth()->user()->id);
     }
 

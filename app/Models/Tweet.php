@@ -10,6 +10,13 @@ class Tweet extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($tweet) {
+            $tweet->comments()->delete();
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

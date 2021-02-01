@@ -8,16 +8,19 @@
                     <a class="text-info font-italic" href={{route('profile.show', $tweet->user->id)}}>
                         {{$tweet->user->username}}</a>
                 </span></h4>
-                <p><span class="font-weight-bold">{{$tweet->retweets->count()}}</span> Retweets</p>
+            <p><span class="font-weight-bold">{{$tweet->retweets->count()}}</span> Retweets</p>
+
             <p class="mt-4">
                 {{$tweet->description}}
             </p>
             <a href="" data-toggle="modal" data-target="#exampleModal">Comment</a>
+            @can('can-retweet', $tweet)
             <form class="mt-2" method="POST" action={{route('retweet.store', $tweet->id)}}>
-            @csrf
+                @csrf
                 <button type="submit" class="btn btn-info" style="padding: 0">Retweet</button>
 
             </form>
+            @endcan
         </div>
     </div>
     {{-- Comment Modal --}}
@@ -31,8 +34,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('comment.store', $tweet->id)}}" class="d-flex" style="flex-direction: column" method="POST">
-                       @csrf
+                    <form action="{{route('comment.store', $tweet->id)}}" class="d-flex" style="flex-direction: column"
+                        method="POST">
+                        @csrf
                         <textarea name="text" id="text" required name="" id="" cols="30" rows="5"></textarea>
                         <button type="submit" type="button" class="btn btn-success mt-3">Leave Comment</button>
                         <button type="button" class="btn btn-secondary mt-3" data-dismiss="modal">Close</button>
@@ -49,34 +53,35 @@
             </div>
         </div>
     </div>
-        {{-- Comment Modal End --}}
+    {{-- Comment Modal End --}}
     <div class="row mt-4">
         <div class="col8 offset-2 my-4">
-                    <h2 class="text-secondary text-dark">Comments</h2>
+            <h2 class="text-secondary text-dark">Comments</h2>
 
             <h4 class="my-3 text-info">{{$message ?? ''}}</h4>
         </div>
 
-            @foreach ($tweet->comments as $comment)
-            <div class="col-8 offset-2 mb-3">
-              <h4 class="mb-3 font-weight-bold d-flex justify-content-between align-items-center" style="font-size: 22px; border-bottom: 1px solid #aaa">{{$comment->user->username}}
+        @foreach ($tweet->comments as $comment)
+        <div class="col-8 offset-2 mb-3">
+            <h4 class="mb-3 font-weight-bold d-flex justify-content-between align-items-center"
+                style="font-size: 22px; border-bottom: 1px solid #aaa">{{$comment->user->username}}
                 <hr>
                 <span style="font-size: 70%" class="ml-5 font-weight-light">{{$comment->created_at}}</span>
             </h4>
             <p>{{$comment->text}} <span style="position:absolute; bottom:0; right:30px">
-             @can('access-comment', $comment)
-            <a href="{{route('comment.edit', [$comment->tweet_id, $comment->id ])}}">Edit</a></span></p>
+                    @can('access-comment', $comment)
+                    <a href="{{route('comment.edit', [$comment->tweet_id, $comment->id ])}}">Edit</a></span></p>
             <form style="position: absolute; bottom:-15px; left:13px;"
-            action="{{route('comment.destroy',[$tweet->id, $comment->id])}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger" style="padding: 0"> Delete</button>
-                </form>
+                action="{{route('comment.destroy',[$tweet->id, $comment->id])}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" style="padding: 0"> Delete</button>
+            </form>
 
             @endcan
         </div>
 
-            @endforeach
+        @endforeach
     </div>
 
 </div>
