@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Retweet;
 use App\Models\Tweet;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class RetweetsController extends Controller

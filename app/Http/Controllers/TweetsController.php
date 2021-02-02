@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Tweet;
 use Illuminate\Support\Facades\Gate;
-
-use Illuminate\Http\Request;
 
 class TweetsController extends Controller
 {
@@ -45,7 +42,6 @@ class TweetsController extends Controller
         $user = auth()->user();
         $message = "Updated successfully";
         return view('profiles.index', compact('user', 'message'));
-        // return redirect('/profile/'.auth()->user()->id);
 
     }
     public function destroy(Tweet $tweet) {
