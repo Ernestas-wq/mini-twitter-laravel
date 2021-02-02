@@ -22,13 +22,14 @@ class ProfilesController extends Controller
 
     public function update(User $user)
     {
+
         Gate::authorize('update-profile', $user->profile);
         $data = request()->validate([
             'title' => ['required', 'max:50'],
             'description' => ['required', 'max:255'],
             'image' => '',
         ]);
-
+        // Dealing with image
         if (request('image')) {
             $imagePath = request('image')->store('profile', 'public');
             $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000, 1000);
@@ -36,8 +37,8 @@ class ProfilesController extends Controller
             $imageArray = ['image' => $imagePath];
         }
 
+        // Saving changes, if there's no image we leave it empty
         auth()->user()->profile->update(array_merge($data, $imageArray ?? []));
-        // dd($data);
 
         return redirect('/profile/' . $user->id);
     }
