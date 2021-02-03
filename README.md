@@ -2,7 +2,7 @@
 
 In this project I created a mini representation of twitter using laravel.
 
-## Instalation
+## Installation
 
 1. You will need some sort of a database managing application(**MySQL Workbench recommended**) and **AMPPS**.
 1. Clone or download and extract the repository.
