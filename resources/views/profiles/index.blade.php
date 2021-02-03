@@ -48,7 +48,10 @@
        <h2 class="display-5">Tweets</h2>
     </div>
     @foreach($user->tweets as $tweet)
-    <div class="row col-8 offset-2 mt-3" style="flex-direction: column">
+    <div class="row col-8 offset-2 mt-3"
+     style="
+     flex-direction: column; border: 1px solid #aaa;padding: 10px; border-radius: 10px;
+     ">
         <h4 class="d-flex align-items-center">{{$tweet->title}}
             @can('update-tweet', $tweet)
             <span class="pl-5" style="font-size: 75%">
@@ -80,7 +83,9 @@
            </div>
 
         @foreach($user->retweets as $retweet)
-         <div class="row col-8 offset-2 mt-3" style="flex-direction: column">
+         <div class="row col-8 offset-2 mt-3" style="
+     flex-direction: column; border: 1px solid #aaa;padding: 10px; border-radius: 10px;
+     ">
         <h4 class="d-flex align-items-center">{{$retweet->title}}
             @can('delete-retweet', $retweet)
                 <form class="ml-4" style="display: inline-block"

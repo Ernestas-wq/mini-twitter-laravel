@@ -12,7 +12,7 @@ class HomeController extends Controller
     }
     public function index() {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $tweets = Tweet::whereIn('user_id', $users)->latest()->paginate(3);
+        $tweets = Tweet::whereIn('user_id', $users)->latest()->paginate(5);
         return view('home', compact('tweets'));
 
     }
